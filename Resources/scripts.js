@@ -3,29 +3,42 @@ function WikiPost(title, description, link){
   this.description = description;
   this.link = link;
 }
-var userInput = "Naruto";
 var url = "https://en.wikipedia.org/w/api.php?action=opensearch&format=json&search="
 
-function searchFunction(){
+function searchFunction(input){
     $.ajax({
-      url: url+userInput,
+      url: url+input,
       method: "GET",
       dataType: "jsonp",
       success: function(data){
-        var list = document.createElement('ul');
          for(var i=0; i<data[1].length; i++){
-            var item = document.createElement('li');
+
+            var item = document.createElement('a');
+            item.classList.add('post');
+            item.setAttribute('href', data[3][i]);
+            item.appendChild(document.createElement('li'));
             item.appendChild(document.createTextNode(data[1][i]));
             item.appendChild(document.createElement('br'));
-            item.appendChild(document.createTextNode(data[2][i]));
             item.appendChild(document.createElement('br'));
-            item.appendChild(document.createTextNode(data[3][i]));
+            item.appendChild(document.createTextNode(data[2][i]));
+            document.getElementById('results').appendChild(document.createElement('br'));
             document.getElementById('results').appendChild(item);
           }
       }
     });
 }
 
+
 $(document).ready(function(){
-searchFunction();
+  $('#search').keyup(function(e){
+    if(e.keyCode == 13){
+      var userInput = document.getElementById('search').value;
+      var parent = document.getElementById('results');
+      var child = document.getElementsByTagName('li');
+      while(parent.firstChild){
+        parent.removeChild(parent.firstChild);
+      }
+      searchFunction(userInput);
+    }
+  });
 });

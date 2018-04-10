@@ -1,3 +1,27 @@
-#results {
-  list-style-type: none;
+html,body{
+  background-color: #FDEEA7;
+}
+
+#title{
+  color: #003D5C;
+}
+
+ul,li { list-style-type: none;
+        list-style-position:inside;
+        margin:0;
+        padding:0;
+        display: flex;
+        justify-content: space-around;
+        flex-direction: column;
+       }
+
+.post{
+  background-color: #9BCC93;
+  border: 1px solid black;
+  text-align: left;
+  font-size: 2rem;
+}
+
+a{
+  color:#6A7059;
 }
